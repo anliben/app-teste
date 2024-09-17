@@ -63,7 +63,7 @@ export class NewComponent implements OnInit {
     public invoice: InvoiceService,
     public http: HttpClient,
     public router: Router,
-    public notify: PoNotificationService,
+    public notify: PoNotificationService
   ) {}
 
   ngOnInit() {}
@@ -85,36 +85,24 @@ export class NewComponent implements OnInit {
       value,
     } = this.dynamicForm.value;
 
-    if (
-      address !== undefined &&
-      cpf !== undefined &&
-      important_of !== undefined &&
-      neighborhood !== undefined &&
-      received_of !== undefined &&
-      reference_of !== undefined &&
-      document !== undefined &&
-      state !== undefined &&
-      value !== undefined
-    ) {
-      const invoiceMock = {
-        id: 0,
-        address: address,
-        cpf: cpf,
-        important_of: important_of,
-        neighborhood: neighborhood,
-        received_of: received_of,
-        reference_of: reference_of,
-        document: document,
-        state: state,
-        value: value,
-      }
+    const invoiceMock = {
+      id: 0,
+      address: address,
+      cpf: cpf,
+      important_of: important_of,
+      neighborhood: neighborhood,
+      received_of: received_of,
+      reference_of: reference_of,
+      document: document,
+      state: state,
+      value: value,
+    };
 
-      this.invoice.create(invoiceMock).subscribe({next: (response: any) => {
-        console.log(response)
-        this.router.navigate(['/'])
-      } })
-    }
-
-    this.notify.warning('Preencha todos os dados!')
+    this.invoice.create(invoiceMock).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.router.navigate(['/']);
+      },
+    });
   }
 }
