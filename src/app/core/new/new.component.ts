@@ -1,18 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { PoModule } from '@po-ui/ng-components';
+import { PoModule, PoNotificationService } from '@po-ui/ng-components';
 import { PoTemplatesModule } from '@po-ui/ng-templates';
 import { InvoiceService } from '../shared/api/invoice.service';
 import { Router } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-new',
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.css'],
   standalone: true,
-  imports: [PoModule, PoTemplatesModule, BrowserAnimationsModule],
+  imports: [PoModule, PoTemplatesModule],
 })
 export class NewComponent implements OnInit {
   fields = [
@@ -59,11 +58,12 @@ export class NewComponent implements OnInit {
   ];
 
   dynamicForm!: NgForm;
-  http = inject(HttpClient);
-  router = inject(Router);
 
   constructor(
-    public invoice: InvoiceService
+    public invoice: InvoiceService,
+    public http: HttpClient,
+    public router: Router,
+    public notify: PoNotificationService,
   ) {}
 
   ngOnInit() {}
@@ -73,7 +73,6 @@ export class NewComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.dynamicForm.value);
     const {
       address,
       cpf,
@@ -87,17 +86,16 @@ export class NewComponent implements OnInit {
     } = this.dynamicForm.value;
 
     if (
-      address !== null &&
-      cpf !== null &&
-      important_of !== null &&
-      neighborhood !== null &&
-      received_of !== null &&
-      reference_of !== null &&
-      document !== null &&
-      state !== null &&
-      value !== null
+      address !== undefined &&
+      cpf !== undefined &&
+      important_of !== undefined &&
+      neighborhood !== undefined &&
+      received_of !== undefined &&
+      reference_of !== undefined &&
+      document !== undefined &&
+      state !== undefined &&
+      value !== undefined
     ) {
-
       const invoiceMock = {
         id: 0,
         address: address,
@@ -115,7 +113,8 @@ export class NewComponent implements OnInit {
         console.log(response)
         this.router.navigate(['/'])
       } })
-
     }
+
+    this.notify.warning('Preencha todos os dados!')
   }
 }

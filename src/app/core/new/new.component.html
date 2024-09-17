@@ -1,11 +1,10 @@
-<po-page-default p-title="Criar Nota">
+<po-page-default>
   <po-breadcrumb
     [p-items]="[
       { label: 'Home', link: '/' },
       { label: 'Novo nota', link: '/new' }
     ]"
-  >
-  </po-breadcrumb>
+  ></po-breadcrumb>
   <po-dynamic-form
     #dynamicForm
     (p-form)="getForm($event)"
