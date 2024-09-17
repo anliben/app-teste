@@ -1,0 +1,11 @@
+<po-page-dynamic-table
+  p-service-api="https://teste-api-production-df29.up.railway.app/api/v1/invoice"
+  [p-actions]="actions"
+  [p-fields]="fields"
+  [p-actions-right]="true"
+  [p-table-custom-actions]="actionsTable"
+  ></po-page-dynamic-table>
+
+<po-modal #modal p-title="Invoice">
+  <po-dynamic-view [p-fields]="fields" [p-value]="employee" [p-text-wrap]="true"> </po-dynamic-view>
+</po-modal>

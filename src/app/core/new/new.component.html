@@ -1,0 +1,16 @@
+<po-page-default p-title="Criar Nota">
+  <po-breadcrumb
+    [p-items]="[
+      { label: 'Home', link: '/' },
+      { label: 'Novo nota', link: '/new' }
+    ]"
+  >
+  </po-breadcrumb>
+  <po-dynamic-form
+    #dynamicForm
+    (p-form)="getForm($event)"
+    p-auto-focus="address"
+    [p-fields]="fields"
+  ></po-dynamic-form>
+  <po-button p-kind="primary" (p-click)="submit()" p-label="Salvar"></po-button>
+</po-page-default>
